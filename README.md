@@ -1,2 +1,2 @@
 # MusicMatrixHackathon
-Code from the Music Matrix Wallifornia hackathon project.
+Code for the Music Matrix project.
