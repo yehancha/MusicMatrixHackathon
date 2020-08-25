@@ -1,28 +1,106 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Music Matrix Streaming</title>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Music Matrix Streaming</h1>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-      <h2>Stream Publish</h2>
+  <style>
+    .div-section {
+      margin-bottom: 8px;
+    }
+  </style>
 
-      <p>You can publish the stream here.</p>
+  <title>Music Matrix Streaming</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Publish - Music Matrix Streaming</h1>
+
+    <div class="div-section">
+      <video id="localVideo" autoplay playsinline muted controls style="height:480px;"></video>
     </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-  </body>
+    <div>
+      <span id="sdpDataTag"></span>
+    </div>
+
+    <div class="div-section">
+      <table>
+        <input type="hidden" id="userAgent" name="userAgent" value="" />
+        <tr>
+          <td><strong>SDP URL</strong></td>
+          <td><input type="text" id="sdpURL" size="50" value="" disabled /></td>
+        </tr>
+        <tr>
+          <td><strong>Application Name</strong></td>
+          <td><input type="text" id="applicationName" size="25" value="" disabled /></td>
+        </tr>
+        <tr>
+          <td><strong>Stream Name</strong></td>
+          <td><input type="text" id="streamName" size="25" value="" disabled /></td>
+        </tr>
+        <tr>
+          <td><strong>Video Bitrate</strong></td>
+          <td><input type="text" id="videoBitrate" size="10" value="" />&nbsp;kbps</td>
+        </tr>
+        <tr>
+          <td><strong>Audio Bitrate</strong></td>
+          <td><input type="text" id="audioBitrate" size="10" value="" />&nbsp;kbps</td>
+        </tr>
+        <tr>
+          <td><strong>FrameRate(*)</strong></td>
+          <td><input type="text" id="videoFrameRate" size="10" value="" />&nbsp;kbps</td>
+        </tr>
+
+        <tr>
+          <td><strong>Video Codec</strong></td>
+          <td>
+            <select name="videoChoice" id="videoChoice">
+              <option value="42e01f" selected="selected">H264</option>
+              <option value="VP9" selected="selected">VP9</option>
+            </select></td>
+        </tr>
+
+        <tr>
+          <td><strong>Audio Codec</strong></td>
+          <td>
+            <select type="text" id="audioChoice">
+              <option value="opus">Opus</option>
+            </select></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td><input type="button" id="buttonGo" onclick="start()" value="" /></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+  <script src="../js/jquery-3.1.0.min.js"></script>
+  <script src="../js/jquery.cookie.js"></script>
+  <script src="webrtc.js"></script>
+  <script type="text/javascript">
+    document.getElementById("userAgent").value = navigator.userAgent;
+    pageReady();
+  </script>
+</body>
+
 </html>
