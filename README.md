@@ -54,3 +54,12 @@ It should also run on Chrome on Android and potentially more Android mobile brow
 4. Embed the sample skeleton in ‘skeleton’ group into your illustration by moving the joints around.
 5. Export the file as an SVG file.
 
+## Streaming
+
+Streaming features are built on [Wowza](https://www.wowza.com/) platform.
+
+### Run
+
+```sh
+yarn watch-streaming
+```
