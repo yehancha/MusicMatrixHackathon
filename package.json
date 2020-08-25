@@ -21,7 +21,7 @@
   },
   "scripts": {
     "watch": "cross-env NODE_ENV=development parcel pose.html --no-hmr --open --no-source-maps ",
-    "watch-streaming": "http-server ./streaming",
+    "watch-streaming": "http-server -c-1 ./streaming",
     "build": "cross-env NODE_ENV=production parcel build pose.html --public-url ./",
     "build-camera": "cross-env NODE_ENV=production parcel build pose.html --public-url ./",
     "lint": "eslint .",
