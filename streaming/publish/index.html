@@ -23,17 +23,27 @@
   <div class="container">
     <h1>Publish - Music Matrix Streaming</h1>
 
+    <div style="height: 25px;"></div>
+
     <div class="div-section">
       <video id="localVideo" autoplay playsinline muted controls style="height:480px;"></video>
     </div>
 
     <div>
-      <span id="sdpDataTag"></span>
+      <div id="sdpDataTag" class="alert alert-danger" role="alert" style="visibility: hidden;"></div>
     </div>
 
     <div class="div-section">
       <table>
         <input type="hidden" id="userAgent" name="userAgent" value="" />
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <input type="button" id="buttonGo" onclick="start()" value="" /><br/>
+            <i>(Change the configurations below if needed.)</i>
+            <div style="height: 25px;"></div>
+          </td>
+        </tr>
         <tr>
           <td><strong>SDP URL</strong></td>
           <td><input type="text" id="sdpURL" size="50" value="" disabled /></td>
@@ -74,10 +84,6 @@
             <select type="text" id="audioChoice">
               <option value="opus">Opus</option>
             </select></td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-          <td><input type="button" id="buttonGo" onclick="start()" value="" /></td>
         </tr>
       </table>
     </div>

@@ -1,5 +1,5 @@
-const GO_BUTTON_START = "Publish";
-const GO_BUTTON_STOP = "Stop";
+const GO_BUTTON_START = "Start Streaming";
+const GO_BUTTON_STOP = "Stop Streaming";
 
 var localVideo = null;
 var remoteVideo = null;
@@ -196,11 +196,11 @@ function wsConnect(url) {
 		var msgCommand = msgJSON['command'];
 
 		if (msgStatus != 200) {
-			$("#sdpDataTag").html(msgJSON['statusDescription']);
+			setError(msgJSON['statusDescription']);
 			stopPublisher();
 		}
 		else {
-			$("#sdpDataTag").html("");
+			setError("");
 
 			var sdpData = msgJSON['sdp'];
 			if (sdpData !== undefined) {
@@ -233,9 +233,14 @@ function wsConnect(url) {
 	wsConnection.onerror = function (evt) {
 		console.log("wsConnection.onerror: " + JSON.stringify(evt));
 
-		$("#sdpDataTag").html('WebSocket connection failed: ' + wsURL);
+		setError('WebSocket connection failed: ' + wsURL);
 		stopPublisher();
 	}
+}
+
+function setError(error) {
+	$("#sdpDataTag").html(error);
+	$("#sdpDataTag").css("visibility", !!error ? 'visible' : 'hidden');
 }
 
 function getUserMediaSuccess(stream) {
