@@ -9,29 +9,10 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  </style>
+  </link>
 
-  <title>Music Matrix Streaming</title>
-</head>
-
-<body>
-  <div class="container">
-    <h1>Playback - Music Matrix Streaming</h1>
-
-    <h4>Streams</h4>
-    <ul>
-      <li>
-        Video: <code>https://cdn3.wowza.com/1/aWtQYmE4K083cUh3/U1FqbUVK/hls/live/playlist.m3u8</code> <button type="button" class="copy copy-video btn btn-light btn-sm" onclick="copyVideoSrc()">Copy</button> <span id="video-availability" class="badge badge-secondary">Available</span>
-      </li>
-      <li>
-        Audio: <code>https://cdn3.wowza.com/1/S2FaU00wdGFzKzJ0/RFRjWklS/hls/live/playlist.m3u8</code> <button type="button" class="copy copy-audio btn btn-light btn-sm" onclick="copyAudioSrc()">Copy</button> <span id="audio-availability"class="badge badge-secondary">Not Available</span>
-      </li>
-    </ul>
-
-    <video id="video" style="max-width: 100%;"></video>
-
-    <button id="play" disabled onclick="video.play()">Play</button>
-  </div>
+  <!-- CSS  -->
+  <link href="https://vjs.zencdn.net/7.2.3/video-js.css" rel="stylesheet">
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -44,7 +25,52 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
     crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+  <!-- JS code -->
+  <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+  <script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.14.1/videojs-contrib-hls.js"></script>
+  <script src="https://vjs.zencdn.net/7.2.3/video.js"></script>
+
+  <title>Music Matrix Streaming</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Playback - Music Matrix Streaming</h1>
+
+    <div style="height: 50px;"></div>
+
+    <h4>Streams</h4>
+
+    <div>
+      <input id='video-type' type="radio" name="stream-type" onchange="changeSource('https://cdn3.wowza.com/1/aWtQYmE4K083cUh3/U1FqbUVK/hls/live/playlist.m3u8')">
+      Video:
+      <code>https://cdn3.wowza.com/1/aWtQYmE4K083cUh3/U1FqbUVK/hls/live/playlist.m3u8</code>
+      <button type="button" class="copy copy-video btn btn-light btn-sm" onclick="copyVideoSrc()">Copy</button>
+      <span id="video-availability" class="badge badge-secondary">Available</span>
+    </div>
+
+    <div>
+      <input type="radio" name="stream-type" onchange="changeSource('https://cdn3.wowza.com/1/S2FaU00wdGFzKzJ0/RFRjWklS/hls/live/playlist.m3u8')" checked>
+      Audio:
+      <code>https://cdn3.wowza.com/1/S2FaU00wdGFzKzJ0/RFRjWklS/hls/live/playlist.m3u8</code>
+      <button type="button" class="copy copy-audio btn btn-light btn-sm" onclick="copyAudioSrc()">Copy</button>
+      <span id="audio-availability" class="badge badge-secondary">Not Available</span>
+    </div>
+
+    <div style="height: 50px;"></div>
+
+    <h4 id="playing-title"></h4>
+
+    <!-- HTML -->
+    <video id='hls-example' class="video-js vjs-default-skin" width="400" height="300" controls>
+      <source type="application/x-mpegURL"
+        src="https://cdn3.wowza.com/1/S2FaU00wdGFzKzJ0/RFRjWklS/hls/live/playlist.m3u8">
+    </video>
+  </div>
+  
   <script src="hlsPlayer.js"></script>
 </body>
+
 </html>
